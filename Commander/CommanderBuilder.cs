@@ -6,8 +6,10 @@ namespace Commander
     /// <summary>
     /// Utility class for building a logical structure from command line arguments.
     /// </summary>
-    public class CommanderBuilder
+    public class CommanderBuilder : ICommandArguments
     {
+        private Dictionary<string, string> _arguments;
+
         /// <summary>
         /// Build a command structure from command line arguments.
         /// </summary>
@@ -34,6 +36,16 @@ namespace Commander
                 else
                     arguments["Default"] = argument;
             }
+
+            _arguments = arguments;
+        }
+
+        public string Get(string key)
+        {
+            if (_arguments.ContainsKey(key))
+                return _arguments[key];
+
+            return "";
         }
     }
 }
